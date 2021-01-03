@@ -1,0 +1,13 @@
+<!-- <p *ngFor="let item of values">
+  {{item.id}},{{item.name}}
+</p> -->
+<table style="border:5px;" *ngFor="let item of values">
+<thead>
+  <th>ID</th>
+  <th>Name</th>
+</thead>
+<tbody>
+  <td>{{item.id}}</td>
+  <td>{{item.name}}</td>
+</tbody>
+</table>
