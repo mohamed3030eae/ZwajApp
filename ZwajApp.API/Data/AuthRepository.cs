@@ -26,7 +26,8 @@ namespace ZwajApp.API.Data
 
         private bool  VerifyPasswordHash(string password,  byte[] passwordSalt,byte[] passwordHash)
         {
-            using(var hmac=new System.Security.Cryptography.HMACSHA512(passwordSalt))
+           
+            using(var hmac= new System.Security.Cryptography.HMACSHA512(passwordSalt))
            {
             
            var ComputedHash=hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
