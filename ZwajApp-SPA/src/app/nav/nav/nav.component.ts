@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Console } from 'console';
+
 import { nextTick } from 'process';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -18,7 +18,7 @@ export class NavComponent implements OnInit {
   Login() {
     this.authService.login(this.model).subscribe(
     next=>{console.log('تم الدخول بنجاح')},
-    erorr=>{console.log("فشل الدخول")}
+    error=>{console.log(error)}
 
     )
   }
