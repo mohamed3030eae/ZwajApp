@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-v4-rtl/dist/css/bootstrap-rtl.css";
 @import "~font-awesome/css/font-awesome.min.css";
+@import "~bootswatch/dist/sketchy/bootstrap.min.css";
+@import "~alertifyjs/build/css/alertify.min.css";
+@import "~alertifyjs/build/css/themes/bootstrap.min.css";
+@import url("assets/myStyles.css");
 
 
 @font-face{font-family: "JF-Flat";src: url("./assets/fonts/JF-Flat-Regular.ttf");}

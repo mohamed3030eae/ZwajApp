@@ -7,9 +7,31 @@
   color:white !important;
 }
 
-.btn-secondary:hover {
+.btn-primary:hover {
     text-decoration: none;
     color: black !important;
     background:pink !important
       }
 
+.dropdown-toggle,
+.dropdown-itme
+{
+  cursor: pointer;
+}
+/* المنيو */
+.mnav-link:hover,
+.nav-link:focus
+{
+ text-decoration: none;
+ color: pink !important;
+}
+/* المنيو */
+.mnav-link
+{
+ text-decoration: none;
+ color: black !important;
+ letter-spacing: 0.5;
+ font-weight: bold;
+ font-family: 'JF-Flat';
+ font-size: 1.0rem;
+}
