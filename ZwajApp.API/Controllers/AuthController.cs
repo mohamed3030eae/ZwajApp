@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -12,10 +13,11 @@ using ZwajApp.API.DTOS;
 
 namespace ZwajApp.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
-    {
+    {   
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
         public AuthController(IAuthRepository repo, IConfiguration config)
