@@ -16,7 +16,7 @@ export class MemberListComponent implements OnInit {
     private alertify: AlertifyService,
     private route: ActivatedRoute
   ) {}
-
+ 
   ngOnInit() {
     // this.loadUsers();
     this.route.data.subscribe(data=>{

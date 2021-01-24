@@ -6,6 +6,7 @@ import { BsDropdownModule, TabsModule } from "ngx-bootstrap";
 import { RouterModule } from "@angular/router";
 import { JwtModule } from "@auth0/angular-jwt";
 import { NgxGalleryModule } from 'ngx-gallery';
+import { FileUploadModule } from "ng2-file-upload";
 
 import { AppComponent } from "./app.component";
 import { NavComponent } from "./nav/nav/nav.component";
@@ -21,10 +22,15 @@ import { MessagesComponent } from "./messages/messages.component";
 import { appRoutes } from "./routes";
 import { AuthGuard } from "./_guards/auth.guard";
 import { UserService } from "./_services/user.service";
-import { MemberCardComponent } from "./members/member-list/member-card/member-card.component";
-import { MemberDetailComponent } from "./members/member-list/member-detail/member-detail.component";
+import { MemberCardComponent } from "./members/member-card/member-card.component";
+import { MemberDetailComponent } from "./members/member-detail/member-detail.component";
 import { MemberDetailResolver } from "./_resolver/member-detail.resolver";
 import { MemberListResolver } from "./_resolver/member-list.resolver";
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from "./_resolver/member-edit.resolver";
+import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.guard";
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+
 
 
 
@@ -43,11 +49,14 @@ export function tokenGetter() {
     MessagesComponent,
     MemberCardComponent,
     MemberDetailComponent,
+    MemberEditComponent,
+    PhotoEditorComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    FileUploadModule,
     NgxGalleryModule, //الاسليدر
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),
@@ -66,9 +75,11 @@ export function tokenGetter() {
     ErrorInterceptorProvidor,
     AlertifyService,
     AuthGuard,
+    PreventUnsavedChangesGuard,
     UserService,
     MemberDetailResolver,
-    MemberListResolver,
+    MemberListResolver, 
+    MemberEditResolver, 
   ],
   bootstrap: [AppComponent],
 })

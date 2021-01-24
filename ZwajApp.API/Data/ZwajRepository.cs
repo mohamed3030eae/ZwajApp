@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Data;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,17 @@ namespace ZwajApp.API.Data
         public void Delete<T>(T entity) where T : class
         {
              _context.Remove(entity);
+        }
+
+        public async Task<Photo> GetMainPhotoForUser(int UserId)
+        {
+            return await _context.Photos.Where(u=>u.UserId == UserId).FirstOrDefaultAsync(p=>p.IsMain);
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo=await _context.Photos.FirstOrDefaultAsync(p =>p.id == id);
+            return photo;
         }
 
         public async Task<User> GetUser(int id)

@@ -13,7 +13,7 @@ describe('MemberListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ MemberListComponent ]
     })
-    .compileComponents();
+    .compileComponents(); 
   }));
 
   beforeEach(() => {
@@ -25,4 +25,5 @@ describe('MemberListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); 
+ 

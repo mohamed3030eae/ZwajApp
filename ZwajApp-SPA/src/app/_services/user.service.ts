@@ -22,5 +22,19 @@ getUser(id):Observable<User>{
  
 }
 
+updateUser(id:number,user:User){
+  return this.http.put<User>(this.baseUrl+id,user);
+ 
+}
+setMainPhoto(userId:number,IdPhoto:number){
+  return this.http.post(this.baseUrl+userId+'/photos/'+IdPhoto+'/setMain',{});
+
+}
+
+deletePhoto(userId:number,IdPhoto:number){
+  return this.http.delete(this.baseUrl+userId+'/photos/'+IdPhoto);
+}
+
+
 
 }
