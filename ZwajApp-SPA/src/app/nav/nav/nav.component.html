@@ -38,7 +38,7 @@
     </div>
   </div>
   <span *ngIf="LoggedIn()">
-    <img src="{{photoUrl}}">
+    <img src="{{photoUrl || 'assets/User.png'}}">
   </span>
 
   <form *ngIf="!LoggedIn()" (ngSubmit)="Login()" #LoginForm="ngForm" class="ml-5 form-inline my-2 my-lg-0">

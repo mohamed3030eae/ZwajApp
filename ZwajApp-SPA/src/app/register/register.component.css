@@ -1,4 +1,4 @@
-.nav-link:hover, .nav-link:focus {
+/* .nav-link:hover, .nav-link:focus {
     text-decoration: none;
     color: pink !important;
 }
@@ -12,4 +12,27 @@
     color: black !important;
     background:pink !important
       }
+
+---------- */
+.nav-link:hover, .nav-link:focus {
+  text-decoration: none;
+  color: pink !important;
+}
+
+.nav-link {
+color:white !important;
+}
+
+.btn-primary:enabled:hover {
+  text-decoration: none;
+  color: black !important;
+  background:pink !important
+}
+[type="radio"]:before{
+position: initial;
+}
+
+[type="radio"]:checked:before {
+background-color: pink;
+}
 
