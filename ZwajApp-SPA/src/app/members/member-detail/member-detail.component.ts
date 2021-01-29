@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import {
@@ -15,7 +16,12 @@ import { UserService } from "src/app/_services/user.service";
   styleUrls: ["./member-detail.component.css"],
 })
 export class MemberDetailComponent implements OnInit {
-  user: User
+  user: User;
+  created:string;
+  age:string;
+  options={weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  showIntro:boolean=true;
+  showLook:boolean=true;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   constructor(
@@ -36,7 +42,10 @@ export class MemberDetailComponent implements OnInit {
     }]
 
     this.galleryImages=this.getImages();
-    
+    this.created=new Date(this.user.created).toLocaleString('ar-EG',this.options).replace('،','');
+    this.age=this.user.age.toLocaleString('ar-EG');
+    this.showIntro=true;
+    this.showLook=true;
   }
 
 

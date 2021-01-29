@@ -46,6 +46,7 @@ namespace ZwajApp.API
             services.AddCors();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper();
+            services.AddScoped<LogUserActicity>();//إضافة السيرفس الخاصة بأخر دخول على الموقع
             //  services.AddTransient<TrialData>(); //load data
             services.AddScoped<Data.IAuthRepository, Data.AuthRepository>();
             services.AddScoped<Data.IZwajRepository, Data.ZwajRepository>();

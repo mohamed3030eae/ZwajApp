@@ -53,9 +53,9 @@ export class PhotoEditorComponent implements OnInit {
       isHTML5: true,
       allowedFileType: ["image"],
       removeAfterUpload: true,
-      autoUpload: false,
+      autoUpload: false, 
       maxFileSize: 10 * 1024 * 1024,
-    });
+    }); 
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     };
@@ -74,7 +74,7 @@ export class PhotoEditorComponent implements OnInit {
           this.authService.currentUser.photoURL = photo.url;
           localStorage.setItem(
             "user",
-            JSON.stringify(this.authService.currentUser)
+            JSON.stringify(this.authService.currentUser) 
           );
           this.alertify.success("تم تحديث الصورة بنجاح");
         }

@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ZwajApp.API.Data;
 using ZwajApp.API.DTOS;
+using ZwajApp.API.Helpers;
 
 namespace ZwajApp.API.Controllers
 {
-     [Authorize]
+    [ServiceFilter(typeof(LogUserActicity))] //إضافة السيرفس الخاصة بأخر دخول على الموقع
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
