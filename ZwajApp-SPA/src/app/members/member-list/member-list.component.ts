@@ -12,6 +12,7 @@ import { UserService } from "../../_services/user.service";
 })
 export class MemberListComponent implements OnInit {
   users: User[];
+  search:boolean=false;
   user:User=JSON.parse(localStorage.getItem('user'));
   genderList=[{value:'رجل',display:'رجال'},{value:'إمرأة',display:'نساء'}];
   userParams:any={};
@@ -47,6 +48,10 @@ export class MemberListComponent implements OnInit {
   }
 
   loadUsers() {
+    if(! this.search)
+    {
+      this.pagination.currentPage=1;
+    }
     this.userService.getUsers(this.pagination.currentPage,this.pagination.itemsPerPage,this.userParams).subscribe(
       (res : PaginationResult<User[]>) => {
         this.users = res.result;

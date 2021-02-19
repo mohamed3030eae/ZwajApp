@@ -37,7 +37,7 @@ export class PhotoEditorComponent implements OnInit {
     //   this.user = data['user'];
     // })
   }
-
+ 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
@@ -67,9 +67,9 @@ export class PhotoEditorComponent implements OnInit {
           url: res.url,
           dateAdded: res.DateAdded,
           isMain: res.isMain,
-        };
-        this.photos.push(photo); 
-        if (photo.isMain) {
+        }; 
+        this.photos.push(photo);      
+        if (photo.isMain) {  
           this.authService.changeMemberPhoto(photo.url);
           this.authService.currentUser.photoURL = photo.url;
           localStorage.setItem(

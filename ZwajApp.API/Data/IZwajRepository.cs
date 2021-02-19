@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models;
 using ZwajApp.API.Helpers;
+using ZwajApp.API.Models;
 
 namespace ZwajApp.API.Data
 {
@@ -14,5 +15,6 @@ namespace ZwajApp.API.Data
         Task<User> GetUser (int id);
         Task<Photo> GetPhoto (int id);
         Task<Photo> GetMainPhotoForUser (int UserId);
+        Task<Like> GetLike (int UserId,int recipientId);
     }
 }

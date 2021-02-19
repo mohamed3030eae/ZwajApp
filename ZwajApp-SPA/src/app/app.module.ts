@@ -31,6 +31,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from "./_resolver/member-edit.resolver";
 import { PreventUnsavedChangesGuard } from "./_guards/prevent-unsaved-changes.guard";
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { ListResolver } from "./_resolver/list.resolver";
+
 
 
 
@@ -39,7 +41,7 @@ export function tokenGetter() {
   return localStorage.getItem('token');
 }
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     NavComponent,
     HomeComponent,
@@ -53,7 +55,8 @@ export function tokenGetter() {
     MemberEditComponent,
     PhotoEditorComponent,
     TimeAgoPipe
-  ],
+     
+   ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -86,6 +89,8 @@ export function tokenGetter() {
     MemberDetailResolver,
     MemberListResolver, 
     MemberEditResolver, 
+    ListResolver
+    
   ],
   bootstrap: [AppComponent],
 })
