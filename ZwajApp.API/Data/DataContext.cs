@@ -16,6 +16,8 @@ namespace Data
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         { 
             builder.Entity<Like>()
@@ -36,6 +38,15 @@ namespace Data
             .OnDelete(DeleteBehavior.Restrict);
 
 
+            builder.Entity<Message>()
+            .HasOne(m=>m.Sender)
+            .WithMany(u=>u.MessageSent)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+            .HasOne(m=>m.Recipient)
+            .WithMany(u=>u.MessageReceived)
+            .OnDelete(DeleteBehavior.Restrict);
         }
 
 

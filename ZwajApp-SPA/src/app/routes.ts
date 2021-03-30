@@ -12,6 +12,7 @@ import { ListResolver } from "./_resolver/list.resolver";
 import { MemberDetailResolver } from "./_resolver/member-detail.resolver";
 import { MemberEditResolver } from "./_resolver/member-edit.resolver";
 import { MemberListResolver } from "./_resolver/member-list.resolver";
+import { MessageResolver } from "./_resolver/message.resolver";
 
 export const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -25,16 +26,12 @@ export const appRoutes: Routes = [
         path: "members",
         component: MemberListComponent,
         canActivate: [AuthGuard],
-        resolve: {
-          users: MemberListResolver,
-        },
+        resolve: {users: MemberListResolver, },
       },
       {
         path: "member/edit",
         component: MemberEditComponent,
-        resolve: {
-          user: MemberEditResolver,
-        },
+        resolve: { user: MemberEditResolver,},
         canDeactivate: [PreventUnsavedChangesGuard],
       },
       // { path: "member/edit", component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard],resolve:{user:MemberEditResolver} },
@@ -42,21 +39,21 @@ export const appRoutes: Routes = [
         path: "members/:id",
         component: MemberDetailComponent,
         canActivate: [AuthGuard],
-        resolve: {
-          user: MemberDetailResolver,
-        },
+        resolve: {user: MemberDetailResolver, },
       },
 
       { path: "lists", component: ListsComponent, canActivate: [AuthGuard] ,resolve: {
         user: ListResolver }},
    
-
+        { path: "messages", component: MessagesComponent, canActivate: [AuthGuard] ,
+        resolve: { messages: MessageResolver }},
         
-      {
-        path: "messages",
-        component: MessagesComponent,
-        canActivate: [AuthGuard],
-      },
+      // {
+      //   path: "messages",
+      //   component: MessagesComponent,
+      //   canActivate: [AuthGuard],
+      //   resolve:{messages:MessageResolver}
+      // },
     ],
   },
 

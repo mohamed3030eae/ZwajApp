@@ -16,7 +16,7 @@ namespace ZwajApp.API.Controllers
 {
     [AllowAnonymous]
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] 
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;

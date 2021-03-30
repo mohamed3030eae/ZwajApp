@@ -68,7 +68,7 @@ export class PhotoEditorComponent implements OnInit {
           dateAdded: res.DateAdded,
           isMain: res.isMain,
         }; 
-        this.photos.push(photo);      
+        this.photos.push(photo);        
         if (photo.isMain) {  
           this.authService.changeMemberPhoto(photo.url);
           this.authService.currentUser.photoURL = photo.url;
