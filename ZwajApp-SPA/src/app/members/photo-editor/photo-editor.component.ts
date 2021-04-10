@@ -68,14 +68,14 @@ export class PhotoEditorComponent implements OnInit {
           dateAdded: res.DateAdded,
           isMain: res.isMain,
         }; 
-        this.photos.push(photo);        
+        this.photos.push(photo);         
         if (photo.isMain) {  
           this.authService.changeMemberPhoto(photo.url);
           this.authService.currentUser.photoURL = photo.url;
           localStorage.setItem(
-            "user",
+            "user", 
             JSON.stringify(this.authService.currentUser) 
-          );
+          );  
           this.alertify.success("تم تحديث الصورة بنجاح");
         }
       }
@@ -86,7 +86,7 @@ export class PhotoEditorComponent implements OnInit {
     this.userService
       .setMainPhoto(this.authService.decodedToken.nameid, photo.id)
       .subscribe(
-        (success) => {
+        (success) => { 
           this.currentMain = this.photos.filter((p) => p.isMain == true)[0];
           this.currentMain.isMain = false;
           photo.isMain = true;

@@ -139,11 +139,12 @@
 
       <tab heading="الرسائل" (deselect)="deselect();">
         <h4>الرسائل</h4>
-      <app-member-messages [recipientId]="user.id"></app-member-messages>
+      <app-member-messages *ngIf="paid" [recipientId]="user.id"></app-member-messages>
+      <app-payment *ngIf="!paid"></app-payment>
       </tab>
 
       </tabset>
     </div>
   </div>
 </div>
-</div>
+</div> 

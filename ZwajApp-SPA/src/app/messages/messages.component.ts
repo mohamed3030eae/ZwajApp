@@ -50,14 +50,15 @@ messageType='Unread';
   }
 
   deleteMessage(id:number){
-    this .alertfy.confirm('هل أنت متأكد من حذف تلك الرسالة',()=>{
-      this.userService.deleteMessage(id,this.authService.decodedToken.nameid).subscribe(()=>{
-        this.messages.splice(this.messages.findIndex(m=>m.id),1);
+    this.alertfy.confirm('هل أنت متأكد من حذف تلك الرسالة',()=>{
+      this.userService.deleteMessage(id,this.authService.decodedToken.nameid).subscribe(
+        ()=>{
+        this.messages.splice(this.messages.findIndex(m => m.id==id),1);
         this.alertfy.success('تم حذف الرسالة بنجاح');
-      },
-      error=>this.alertfy.error(error)
-      )
-    })
+      }
+      ,error=>this.alertfy.error(error)
+      );
+    });
   }
 
 }

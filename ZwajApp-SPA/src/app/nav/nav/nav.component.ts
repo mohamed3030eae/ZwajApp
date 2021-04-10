@@ -27,12 +27,17 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     this.authService.currentPhotoUrl.subscribe(
      photooUrl =>this.photoUrl=photooUrl);
+     if(this.LoggedIn)
+     {
+      this.userService.getUnreadCount(this.authService.decodedToken.nameid).subscribe(
+        res=>{this.authService.unreadCount.next(res.toString());
+         this.authService.latestUnreadCount.subscribe(res =>{this.count=res;});
+       }
+      );
+      this.getPaymentForUser();
 
-     this.userService.getUnreadCount(this.authService.decodedToken.nameid).subscribe(
-       res=>{this.authService.unreadCount.next(res.toString());
-        this.authService.latestUnreadCount.subscribe(res =>{this.count=res;});
-      }
-     );
+     }
+ 
 
      this.hubConnection=new HubConnectionBuilder().withUrl("http://localhost:5000/chat").build();
      this.hubConnection.start();
@@ -54,6 +59,7 @@ export class NavComponent implements OnInit {
         this.userService.getUnreadCount(this.authService.decodedToken.nameid).subscribe(res=>{
           this.authService.unreadCount.next(res.toString());
           this.authService.latestUnreadCount.subscribe(res=>{this.count=res;});
+          this.getPaymentForUser();
                });	
       },
       (error) => {
@@ -73,9 +79,23 @@ export class NavComponent implements OnInit {
   LoggedOut() {
     localStorage.removeItem("token");
     this.authService.decodedToken=null;
+    this.authService.paid=false;
     localStorage.removeItem("user");
     this.authService.currentUser=null;
     this.alertify.message("تم الخروج");
     this.router.navigate(["/home"]);
   }
+  getPaymentForUser(){
+    this.userService.getPaymentForUser(this.authService.currentUser.id).subscribe(
+    res =>{
+      if(res !== null)
+      this.authService.paid=true;
+      else
+      this.authService.paid=false;
+    }
+
+    )
+  }
+
+
 }

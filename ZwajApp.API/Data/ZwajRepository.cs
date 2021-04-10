@@ -143,8 +143,8 @@ namespace ZwajApp.API.Data
         {
            var messages= await _context.Messages.Include(m=>m.Sender).ThenInclude(u=>u.Photos)
            .Include(m=>m.Recipient).ThenInclude(u=>u.Photos).Where(m=>m.RecipientId==UserId &&
-           m.RecipientDeleted==false && m.SenderId==recipientId
-           ||m.RecipientId==recipientId && m.SenderDeleted==false&&m.SenderId==UserId).OrderByDescending(m=>m.MessageSent).ToListAsync();
+           m.RecipientDeleted==false && m.SenderId==recipientId ||m.RecipientId==recipientId && 
+           m.SenderDeleted==false && m.SenderId==UserId).OrderByDescending(m=>m.MessageSent).ToListAsync();
            return messages;
         }
 
@@ -153,6 +153,11 @@ namespace ZwajApp.API.Data
             var messages=await _context.Messages.Where(m =>m.IsRead ==false && m.RecipientId==userId).ToListAsync();
             var count=messages.Count();
             return count;
+        }
+
+        public async Task<Payment> GetPaymentForUser(int userId)
+        {
+            return await _context.Payments.FirstOrDefaultAsync(predicate=>predicate.UserId==userId);
         }
     }
 }

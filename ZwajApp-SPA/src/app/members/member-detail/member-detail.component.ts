@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { AfterViewChecked, Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { TabsetComponent } from "ngx-bootstrap";
 import {
@@ -17,7 +17,8 @@ import { UserService } from "src/app/_services/user.service";
   templateUrl: "./member-detail.component.html",
   styleUrls: ["./member-detail.component.css"],
 })
-export class MemberDetailComponent implements OnInit {
+export class MemberDetailComponent implements OnInit , AfterViewChecked  {
+
   @ViewChild('memberTabs') memberTabs:TabsetComponent;
   user: User;
   created:string;
@@ -25,6 +26,7 @@ export class MemberDetailComponent implements OnInit {
   options={weekday:'long',year:'numeric',month:'long',day:'numeric'};
   showIntro:boolean=true;
   showLook:boolean=true;
+  paid:boolean=false;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   constructor(
@@ -33,9 +35,16 @@ export class MemberDetailComponent implements OnInit {
     private alertify: AlertifyService,
     private route: ActivatedRoute
   ) {}
+  ngAfterViewChecked(): void {
+    setTimeout(() => {
+      this.paid=this.authService.paid;
+    }, 0);
+  }
 
   ngOnInit() {
+
     // this.loadUser();
+    this.paid=this.authService.paid;
     this.route.data.subscribe(data=> {
       this.user=data['user']
     });

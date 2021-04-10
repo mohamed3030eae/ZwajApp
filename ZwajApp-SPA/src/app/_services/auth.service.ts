@@ -17,6 +17,7 @@ export class AuthService {
 
   decodedToken: any;
   currentUser: User;
+  paid:boolean=false;
   photoUrl = new BehaviorSubject<string>("../../assets/User.png");
   currentPhotoUrl = this.photoUrl.asObservable();
   //Counter

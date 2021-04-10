@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Stripe;
 using ZwajApp.API.Data;
 using ZwajApp.API.DTOS;
 using ZwajApp.API.Helpers;
@@ -20,10 +22,12 @@ namespace ZwajApp.API.Controllers
     {
         private readonly IZwajRepository _repo;
         private readonly IMapper _mapper;
-        public UsersController(IZwajRepository repo, IMapper mapper)
+        private readonly IOptions<StripeSettings> _stripeSettings;
+        public UsersController(IZwajRepository repo, IMapper mapper,IOptions<StripeSettings> stripeSettings)
         {
             _repo = repo;
             _mapper = mapper;
+            _stripeSettings=stripeSettings;
 
         }
 
@@ -91,7 +95,72 @@ namespace ZwajApp.API.Controllers
                 return BadRequest("فشل فى الإعجاب");
 
         }
+        
+[HttpPost("{userId}/charge/{stripeToken}")]
+        public async Task<IActionResult> Charge(int userId, string stripeToken)
 
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+			
+            // var options = new TokenCreateOptions
+            // {
+            // Card = new CreditCardOptions
+            //     {
+            //         // Number = "4242424242424242",
+            //         // ExpYear = 2020,
+            //         // ExpMonth = 3,
+            //         // Cvc = "123"
+            //     }
+            // };
+
+            // var service = new TokenService();
+            // Token stripeToken = service.Create(options);
+
+            var customer = customers.Create(new CustomerCreateOptions {
+            SourceToken = stripeToken  
+            }); 
+
+            var charge = charges.Create(new ChargeCreateOptions {
+            Amount = 5000,
+            Description = "إشتراك مدى الحياة",
+            Currency = "usd",
+            CustomerId = customer.Id  
+            });
+
+            var payment = new Payment{
+                PaymentDate = DateTime.Now,
+                Amount = charge.Amount/100,
+                UserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value),
+                ReceiptUrl = charge.ReceiptUrl,
+                Description = charge.Description,
+                Currency = charge.Currency,
+                IsPaid = charge.Paid
+            };
+            _repo.Add<Payment>(payment);
+            if(await _repo.SaveAll()){
+           return Ok(new {IsPaid = charge.Paid } );
+            }
+            
+            return BadRequest("فشل في السداد");
+
+        }
+
+
+
+        [HttpGet("{userId}/payment")]
+        public async Task<IActionResult> GetPaymentForUser(int userId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+                var payment =await _repo.GetPaymentForUser(userId);
+                return Ok(payment);
+               
+
+        }
 
     }
 }
